@@ -14,4 +14,8 @@ public class Products : BaseEntity
     public virtual Units Units { get; set; } = null!;
     public virtual TaxRates TaxRates { get; set; } = null!;
     public virtual Suppliers Suppliers { get; set; } = null!;
+
+    public virtual ICollection<ProductPriceHistory> ProductPriceHistories { get; set; } = new List<ProductPriceHistory>();
+    public virtual ICollection<ProductStock> ProductStocks { get; set; } = new List<ProductStock>();
+    public virtual ICollection<InventoryMovements> InventoryMovements { get; set; } = new List<InventoryMovements>();
 }
