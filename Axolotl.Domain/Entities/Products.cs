@@ -18,4 +18,6 @@ public class Products : BaseEntity
     public virtual ICollection<ProductPriceHistory> ProductPriceHistories { get; set; } = new List<ProductPriceHistory>();
     public virtual ICollection<ProductStock> ProductStocks { get; set; } = new List<ProductStock>();
     public virtual ICollection<InventoryMovements> InventoryMovements { get; set; } = new List<InventoryMovements>();
+    public ICollection<PurchaseOrderItems> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItems>();
+    public ICollection<SupplierInvoiceItems> SupplierInvoiceItems { get; set; } = new List<SupplierInvoiceItems>();
 }
