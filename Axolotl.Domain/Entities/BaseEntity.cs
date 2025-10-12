@@ -5,7 +5,7 @@ namespace Axolotl.Domain.Entities;
 public abstract class BaseEntity
 {
     public Guid UUID { get; set; } = Guid.NewGuid();
-    public StateType State { get; set; } = StateType.Active;
+    public StateType State { get; set; } = StateType.ACTIVE;
     public int? AuditCreateUser { get; set; }
     public DateTime? AuditCreateDate { get; set; }
     public int? AuditUpdateUser { get; set; }

@@ -2,6 +2,6 @@
 
 public enum StateType
 {
-    Inactive,
-    Active
+    INACTIVE,
+    ACTIVE
 }

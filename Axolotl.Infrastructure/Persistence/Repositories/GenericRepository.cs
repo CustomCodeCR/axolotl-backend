@@ -38,7 +38,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     public async Task<IEnumerable<T>> GetSelectAsync()
     {
         var getAll = await _entity
-            .Where(x => x.State.Equals(StateType.Active) && x.AuditDeleteUser == null && x.AuditDeleteDate == null)
+            .Where(x => x.State.Equals(StateType.ACTIVE) && x.AuditDeleteUser == null && x.AuditDeleteDate == null)
             .AsNoTracking()
             .ToListAsync();
 
