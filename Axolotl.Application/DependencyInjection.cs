@@ -1,4 +1,5 @@
 ﻿using Axolotl.Application.Commons.Behaviors;
+using Axolotl.Application.Mappings;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,7 +17,8 @@ public static class DependencyInjection
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
-
+        services.AddAutoMapper(typeof(AppProfile).Assembly);
+        
         return services;
     }
 }

@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System.Reflection;
+using Axolotl.Domain.Entities;
 
 namespace Axolotl.Infrastructure.Persistence.Context;
 
 public partial class ApplicationDbContext : DbContext
+
 {
     private readonly string _connectionString;
+
+    public DbSet<Products> Products => Set<Products>();
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, string connectionString)
         : base(options)

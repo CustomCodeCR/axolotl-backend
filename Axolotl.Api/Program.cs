@@ -65,6 +65,7 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddOutputCache(opciones =>
 {

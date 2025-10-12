@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\" />
     <Folder Include="HttpRequest\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
