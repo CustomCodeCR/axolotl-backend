@@ -2,8 +2,8 @@
 
 public class PurchaseOrderItems : BaseEntity
 {
-    public string PurchaseOrderId { get; set; } = null!;
-    public string ProductId { get; set; } = null!;
+    public Guid PurchaseOrderId { get; set; }
+    public Guid ProductId { get; set; }
     public int Quantity { get; set; }
     public decimal UnitCost { get; set; }
 

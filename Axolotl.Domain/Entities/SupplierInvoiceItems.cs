@@ -2,8 +2,8 @@
 
 public class SupplierInvoiceItems : BaseEntity
 {
-    public string SupplierInvoiceId { get; set; } = null!;
-    public string ProductId { get; set; } = null!;
+    public Guid SupplierInvoiceId { get; set; }
+    public Guid ProductId { get; set; }
     public string? Description { get; set; } = null!;
     public int Quantity { get; set; }
     public decimal UnitCost { get; set; }

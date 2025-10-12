@@ -5,10 +5,10 @@ public class Products : BaseEntity
     public string SKU { get; set; } = null!;
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
-    public string CategoryId { get; set; } = null!;
-    public string UnitId { get; set; } = null!;
-    public string TaxRateId { get; set; } = null!;
-    public string SupplierId { get; set; } = null!;
+    public Guid CategoryId { get; set; }
+    public Guid UnitId { get; set; }
+    public Guid TaxRateId { get; set; }
+    public Guid SupplierId { get; set; }
 
     public virtual Categories Categories { get; set; } = null!;
     public virtual Units Units { get; set; } = null!;
@@ -20,4 +20,6 @@ public class Products : BaseEntity
     public virtual ICollection<InventoryMovements> InventoryMovements { get; set; } = new List<InventoryMovements>();
     public ICollection<PurchaseOrderItems> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItems>();
     public ICollection<SupplierInvoiceItems> SupplierInvoiceItems { get; set; } = new List<SupplierInvoiceItems>();
+    public virtual ICollection<OrderItems> OrderItems { get; set; } = new List<OrderItems>();
+    public virtual ICollection<SaleItems> SaleItems { get; set; } = new List<SaleItems>();
 }

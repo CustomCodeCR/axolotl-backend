@@ -2,7 +2,7 @@
 
 public class ProductPriceHistory : BaseEntity
 {
-    public string ProductId { get; set; } = null!;
+    public Guid ProductId { get; set; }
     public DateTime ValidFrom { get; set; }
     public DateTime ValidTo { get; set; }
     public decimal Price { get; set; }

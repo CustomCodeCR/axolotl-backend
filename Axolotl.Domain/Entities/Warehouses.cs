@@ -13,4 +13,6 @@ public class Warehouses : BaseEntity
     public virtual ICollection<ProductStock> ProductStocks { get; set; } = new List<ProductStock>();
     public virtual ICollection<InventoryMovements> InventoryMovements { get; set; } = new List<InventoryMovements>();
     public virtual ICollection<PurchaseOrders> PurchaseOrders { get; set; } = new List<PurchaseOrders>();
+    public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
+    public virtual ICollection<Sales> Sales { get; set; } = new List<Sales>();
 }

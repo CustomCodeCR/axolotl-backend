@@ -9,4 +9,6 @@ public class Customers : BaseEntity
     public string Phone { get; set; } = null!;
 
     public virtual ICollection<CustomerAddresses> CustomerAddresses { get; set; } = new List<CustomerAddresses>();
+    public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
+    public virtual ICollection<Sales> Sales { get; set; } = new List<Sales>();
 }

@@ -2,8 +2,8 @@
 
 public class SupplierInvoices : BaseEntity
 {
-    public string PurcharseOrderId { get; set; } = null!;
-    public string SupplierId { get; set; } = null!;
+    public Guid PurcharseOrderId { get; set; }
+    public Guid SupplierId { get; set; }
     public string InvoiceNumber { get; set; } = null!;
     public decimal TotalExTax { get; set; }
     public decimal TotalTax { get; set; }

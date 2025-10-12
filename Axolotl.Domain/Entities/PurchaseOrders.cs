@@ -4,8 +4,8 @@ namespace Axolotl.Domain.Entities;
 
 public class PurchaseOrders : BaseEntity
 {
-    public string SupplierId { get; set; } = null!;
-    public string WarehouseId { get; set; } = null!;
+    public Guid SupplierId { get; set; }
+    public Guid WarehouseId { get; set; }
     public PurchaseStatus Status { get; set; } = PurchaseStatus.DRAFT;
     public DateTime OrderDate { get; set; }
     public DateTime ExpectedDate { get; set; }

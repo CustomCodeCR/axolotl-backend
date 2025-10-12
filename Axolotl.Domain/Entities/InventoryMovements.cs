@@ -4,8 +4,8 @@ namespace Axolotl.Domain.Entities;
 
 public class InventoryMovements : BaseEntity
 {
-    public string WarehouseId { get; set; } = null!;
-    public string ProductId { get; set; } = null!;
+    public Guid WarehouseId { get; set; }
+    public Guid ProductId { get; set; }
     public InventoryMovementType MovementType { get; set; }
     public int Quantity { get; set; }
     public string ReferenceTable { get; set; } = null!;

@@ -2,7 +2,7 @@
 
 public class CustomerAddresses : BaseEntity
 {
-    public string CustomerId { get;  set; } = null!;
+    public Guid CustomerId { get;  set; }
     public string Label { get; set; } = null!;
     public string Address1 { get; set; } = null!;
     public string? Address2 { get; set; }

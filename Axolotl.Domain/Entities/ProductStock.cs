@@ -2,8 +2,8 @@
 
 public class ProductStock : BaseEntity
 {
-    public string WarehouseId { get; set; } = null!;
-    public string ProductId { get; set; } = null!;
+    public Guid WarehouseId { get; set; }
+    public Guid ProductId { get; set; }
     public int QuantityOnHand { get; set; } = 0;
     public int QuantityOnReserved { get; set; } = 0;
 
