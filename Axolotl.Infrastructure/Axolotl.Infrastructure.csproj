@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\Context\Configurations\" />
     <Folder Include="Persistence\Migrations\" />
   </ItemGroup>
 
