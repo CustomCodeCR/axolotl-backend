@@ -1,6 +1,8 @@
 ﻿using Axolotl.Application.Commons.Config;
 using Axolotl.Application.Interfaces.Persistence;
 using Axolotl.Application.Interfaces.Services;
+using Axolotl.Application.Mappings;
+using Axolotl.Application.UseCases.ProductPriceHistory.Commands.ChangePrice;
 using Axolotl.Infrastructure.Authentication;
 using Axolotl.Infrastructure.Persistence.Context;
 using Axolotl.Infrastructure.Persistence.Repositories;
@@ -49,12 +51,23 @@ public static class DependencyInjection
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+        services.AddScoped<IProductPriceHistoryRepository, ProductPriceHistoryRepository>();
+        services.AddScoped<IProductStockRepository, ProductStockRepository>();
+        services.AddScoped<ISalesRepository, SalesRepository>();
+        services.AddScoped<IProductPriceHistoryRepository, ProductPriceHistoryRepository>();
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         services.AddTransient<IOrderingQuery, OrderingQuery>();
-        services.AddTransient<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IFileStorageService, FileStorageService>();
 
+        services.AddAutoMapper(typeof(ProductPriceHistoryProfile).Assembly);
+        services.AddAutoMapper(typeof(Axolotl.Application.Mappings.ProductPriceHistoryProfile).Assembly);
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ChangePriceCommand).Assembly));
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Axolotl.Application.UseCases.Sales.Commands.CreateSale.CreateSaleCommand).Assembly));
+
         services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
-        //services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         return services;
     }
