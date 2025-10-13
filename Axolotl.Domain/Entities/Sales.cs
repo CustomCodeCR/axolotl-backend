@@ -4,6 +4,7 @@ namespace Axolotl.Domain.Entities;
 
 public class Sales : BaseEntity
 {
+
     public Guid CustomerId { get; set; }
     public Guid WarehouseId { get; set; }
     public SaleStatus Status { get; set; } = SaleStatus.OPEN;
