@@ -19,6 +19,6 @@ namespace Axolotl.Application.Dtos.Sales.Requests
     {
         public Guid ProductId { get; init; }
         public int Quantity { get; init; }
-        public decimal DiscountPct { get; init; } // 0..1
+        public decimal DiscountPct { get; init; }
     }
 }

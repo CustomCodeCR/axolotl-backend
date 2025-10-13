@@ -7,68 +7,77 @@ using Axolotl.Infrastructure.Authentication;
 using Axolotl.Infrastructure.Persistence.Context;
 using Axolotl.Infrastructure.Persistence.Repositories;
 using Axolotl.Infrastructure.Services;
-using DinkToPdf;
-using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
-
-namespace Axolotl.Infrastructure;
-
-public static class DependencyInjection
+namespace Axolotl.Infrastructure
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
+    public static class DependencyInjection
     {
-        var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-
-        string connectionString;
-
-        if (environment != "Production")
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
         {
-            connectionString = configuration.GetConnectionString("Connection")!;
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            string connectionString;
+
+            if (environment != "Production")
+            {
+                connectionString = configuration.GetConnectionString("Connection")!;
+            }
+            else
+            {
+                var sp = services.BuildServiceProvider();
+                var secretService = sp.GetRequiredService<IVaultSecretService>();
+
+                var secretJson = secretService.GetSecret("Axolotl/data/ConnectionStrings").GetAwaiter().GetResult();
+                var secretResponse = JsonConvert.DeserializeObject<SecretResponse<ConnectionStringsConfig>>(secretJson);
+                var cfg = secretResponse?.Data?.Data;
+                connectionString = cfg!.Connection;
+            }
+
+            services.AddSingleton<string>(connectionString!);
+
+            services.AddDbContext<ApplicationDbContext>((sp, options) =>
+            {
+                var resolvedConnection = sp.GetRequiredService<string>();
+                options.UseNpgsql(resolvedConnection);
+            });
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            // Repos
+            services.AddScoped<IProductPriceHistoryRepository, ProductPriceHistoryRepository>();
+            services.AddScoped<IProductStockRepository, ProductStockRepository>();
+            services.AddScoped<ISalesRepository, SalesRepository>();
+            services.AddScoped<IInvoicesRepository, InvoicesRepository>();
+            services.AddScoped<IPaymentsRepository, PaymentsRepository>();
+            services.AddScoped<IPaymentMethodsRepository, PaymentMethodsRepository>();
+
+            // UoW
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // Otros servicios
+            services.AddTransient<IOrderingQuery, OrderingQuery>();
+            services.AddTransient<IFileStorageService, FileStorageService>();
+
+            // AutoMapper
+            services.AddAutoMapper(typeof(ProductPriceHistoryProfile).Assembly);
+
+            // MediatR
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(ChangePriceCommand).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(Axolotl.Application.UseCases.Sales.Commands.CreateSale.CreateSaleCommand).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(Axolotl.Application.UseCases.Invoices.Commands.CreateFromSale.CreateInvoiceFromSaleCommand).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(Axolotl.Application.UseCases.Payments.Commands.CapturePayment.CapturePaymentCommand).Assembly);
+            });
+
+            // JWT
+            services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+
+            return services;
         }
-        else
-        {
-            var serviceProvider = services.BuildServiceProvider();
-            var secretService = serviceProvider.GetRequiredService<IVaultSecretService>();
-
-            var secretJson = secretService.GetSecret("Axolotl/data/ConnectionStrings").GetAwaiter().GetResult();
-            var secretResponse = JsonConvert.DeserializeObject<SecretResponse<ConnectionStringsConfig>>(secretJson);
-            var config = secretResponse?.Data?.Data;
-            connectionString = config!.Connection;
-        }
-
-        services.AddSingleton(connectionString);
-
-        services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
-        {
-            var resolvedConnection = serviceProvider.GetRequiredService<string>();
-            options.UseNpgsql(resolvedConnection);
-        });
-
-        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-        services.AddScoped<IProductPriceHistoryRepository, ProductPriceHistoryRepository>();
-        services.AddScoped<IProductStockRepository, ProductStockRepository>();
-        services.AddScoped<ISalesRepository, SalesRepository>();
-        services.AddScoped<IProductPriceHistoryRepository, ProductPriceHistoryRepository>();
-
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-        services.AddTransient<IOrderingQuery, OrderingQuery>();
-        services.AddTransient<IFileStorageService, FileStorageService>();
-
-        services.AddAutoMapper(typeof(ProductPriceHistoryProfile).Assembly);
-        services.AddAutoMapper(typeof(Axolotl.Application.Mappings.ProductPriceHistoryProfile).Assembly);
-
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ChangePriceCommand).Assembly));
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Axolotl.Application.UseCases.Sales.Commands.CreateSale.CreateSaleCommand).Assembly));
-
-        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
-
-        return services;
     }
 }

@@ -7,6 +7,9 @@ public interface IUnitOfWork : IDisposable
 {
     IProductPriceHistoryRepository ProductPriceHistory { get; }
     ISalesRepository Sales { get; }
+    IInvoicesRepository Invoices { get; }
+    IPaymentsRepository Payments { get; }
+    IPaymentMethodsRepository PaymentMethods { get; }
 
     Task SaveChangesAsync();
     IDbTransaction BeginTransaction();
