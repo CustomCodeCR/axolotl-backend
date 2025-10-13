@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Axolotl.Domain\Axolotl.Domain.csproj" />
     <ProjectReference Include="..\Axolotl.Utilities\Axolotl.Utilities.csproj" />
+	  <!-- <ProjectReference Include="..\Axolotl.Infrastructure\Axolotl.Infrastructure.csproj" /> -->
   </ItemGroup>
 
 </Project>

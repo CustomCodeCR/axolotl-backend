@@ -1,6 +1,10 @@
-﻿using Axolotl.Application.Interfaces.Services;
-using Axolotl.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore.Storage;
+using Axolotl.Domain.Entities;
+using Axolotl.Infrastructure.Persistence.Repositories;
+using Axolotl.Application.Interfaces.Persistence;
+using Axolotl.Application.Interfaces.Services;
+using Axolotl.Infrastructure.Persistence.Context;
+
 using System.Data;
 
 namespace Axolotl.Infrastructure.Services;
@@ -46,4 +50,8 @@ public class UnitOfWork : IUnitOfWork
         var transaction = _context.Database.BeginTransaction();
         return transaction.GetDbTransaction();
     }
+
+    //References
+    private IGenericRepository<Categories> _categories = null!;
+    public IGenericRepository<Categories> Categories => _categories ?? new GenericRepository<Categories>(_context);
 }
