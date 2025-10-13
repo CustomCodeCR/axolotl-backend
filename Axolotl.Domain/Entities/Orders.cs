@@ -14,4 +14,5 @@ public class Orders : BaseEntity
     public virtual Customers Customers { get; set; } = null!;
     public virtual Warehouses Warehouses { get; set; } = null!;
     public virtual ICollection<OrderItems> OrderItems { get; set; } = new List<OrderItems>();
+    public virtual ICollection<Invoices> Invoices { get; set; } = new List<Invoices>();
 }

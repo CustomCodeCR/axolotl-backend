@@ -11,4 +11,5 @@ public class Customers : BaseEntity
     public virtual ICollection<CustomerAddresses> CustomerAddresses { get; set; } = new List<CustomerAddresses>();
     public virtual ICollection<Orders> Orders { get; set; } = new List<Orders>();
     public virtual ICollection<Sales> Sales { get; set; } = new List<Sales>();
+    public virtual ICollection<Carts> Carts { get; set; } = new List<Carts>();
 }
