@@ -2,8 +2,8 @@ using Axolotl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Axolotl.Infrastructure.Persistence.Context.Configurations
-{
+namespace Axolotl.Infrastructure.Persistence.Context.Configurations;
+
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
@@ -25,4 +25,3 @@ namespace Axolotl.Infrastructure.Persistence.Context.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
-}

@@ -1,73 +1,64 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Axolotl.Application.UseCases.Category.Commands.CreateCommand;
+using Axolotl.Application.UseCases.Category.Commands.DeleteCommand;
+using Axolotl.Application.UseCases.Category.Commands.UpdateCommand;
+using Axolotl.Application.UseCases.Category.Queries.GetAllQuery;
+using Axolotl.Application.UseCases.Category.Queries.GetByIdQuery;
+using Axolotl.Application.UseCases.Category.Queries.GetSelectQuery;
 
-namespace Axolotl.Api.Controllers
+namespace Axolotl.Api.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CategoryController : ControllerBase
 {
- [ApiController]
-    [Route("api/[controller]")]
-    public class CategoriesController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public CategoryController(IMediator mediator)
     {
-        private readonly GetAllCategoriesUseCase _getAll;
-        private readonly GetCategoryByIdUseCase _getById;
-        private readonly CreateCategoryUseCase _create;
-        private readonly UpdateCategoryUseCase _update;
-        private readonly DeleteCategoryUseCase _delete;
+        _mediator = mediator;
+    }
 
-        public CategoriesController(
-            GetAllCategoriesUseCase getAll,
-            GetCategoryByIdUseCase getById,
-            CreateCategoryUseCase create,
-            UpdateCategoryUseCase update,
-            DeleteCategoryUseCase delete)
-        {
-            _getAll = getAll;
-            _getById = getById;
-            _create = create;
-            _update = update;
-            _delete = delete;
-        }
+    [HttpGet]
+    public async Task<IActionResult> CategoryList([FromQuery] GetAllCategoryQuery query)
+    {
+        var response = await _mediator.Send(query);
+        return Ok(response);
+    }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
-            var categories = await _getAll.ExecuteAsync();
-            return Ok(categories);
-        }
+    [HttpGet("Select")]
+    public async Task<IActionResult> CategorySelect()
+    {
+        var response = await _mediator.Send(new GetSelectCategoryQuery());
+        return Ok(response);
+    }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var category = await _getById.ExecuteAsync(id);
-            if (category == null)
-                return NotFound();
+    [HttpGet("{categoryId:int}")]
+    public async Task<IActionResult> CategoryById(Guid categoryId)
+    {
+        var response = await _mediator.Send(new GetCategoryByIdQuery() { CategoryId = categoryId });
+        return Ok(response);
+    }
 
-            return Ok(category);
-        }
+    [HttpPost("Create")]
+    public async Task<IActionResult> CategoryCreate([FromBody] CreateCategoryCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(CategoryRequest request)
-        {
-            var result = await _create.ExecuteAsync(request);
-            return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
-        }
+    [HttpPut("Update")]
+    public async Task<IActionResult> CategoryUpdate([FromBody] UpdateCategoryCommand command)
+    {
+        var response = await _mediator.Send(command);
+        return Ok(response);
+    }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, CategoryRequest request)
-        {
-            var success = await _update.ExecuteAsync(id, request);
-            if (!success)
-                return NotFound();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var success = await _delete.ExecuteAsync(id);
-            if (!success)
-                return NotFound();
-
-            return NoContent();
-        }
+    [HttpDelete("Delete/{categoryId:int}")]
+    public async Task<IActionResult> CategoryDelete(Guid categoryId)
+    {
+        var response = await _mediator.Send(new DeleteCategoryCommand() { CategoryId = categoryId });
+        return Ok(response);
     }
 }
