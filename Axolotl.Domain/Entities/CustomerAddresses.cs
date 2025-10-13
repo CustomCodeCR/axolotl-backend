@@ -14,4 +14,5 @@ public class CustomerAddresses : BaseEntity
     public bool IsDefault { get; set; } = false;
 
     public virtual Customers Customers { get; set; } = null!;
+    public virtual ICollection<Invoices> Invoices { get; set; } = new List<Invoices>();
 }

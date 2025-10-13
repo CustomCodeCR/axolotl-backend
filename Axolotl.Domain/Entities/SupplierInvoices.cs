@@ -2,7 +2,7 @@
 
 public class SupplierInvoices : BaseEntity
 {
-    public Guid PurcharseOrderId { get; set; }
+    public Guid PurchaseOrderId { get; set; }
     public Guid SupplierId { get; set; }
     public string InvoiceNumber { get; set; } = null!;
     public decimal TotalExTax { get; set; }
@@ -11,5 +11,5 @@ public class SupplierInvoices : BaseEntity
 
     public virtual PurchaseOrders PurchaseOrders { get; set; } = null!;
     public virtual Suppliers Suppliers { get; set; } = null!;
-    public ICollection<SupplierInvoiceItems> SupplierInvoiceItems { get; set; } = new List<SupplierInvoiceItems>();
+    public virtual ICollection<SupplierInvoiceItems> SupplierInvoiceItems { get; set; } = new List<SupplierInvoiceItems>();
 }
