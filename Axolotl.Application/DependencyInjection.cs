@@ -1,4 +1,7 @@
 ﻿using Axolotl.Application.Commons.Behaviors;
+using Axolotl.Application.Interfaces.Persistence;
+using Axolotl.Application.Interfaces.Services;
+using Axolotl.Application.Services;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +19,13 @@ public static class DependencyInjection
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
+        services.AddScoped<IInventoryMovementService, InventoryMovementService>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IPurchaseOrderService, PurchaseOrderService>();
+        services.AddScoped<ISupplierInvoiceService, SupplierInvoiceService>();
+        services.AddScoped<ICartService, CartService>();
+     
+
 
         return services;
     }

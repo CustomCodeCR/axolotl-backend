@@ -27,13 +27,13 @@ namespace Axolotl.Infrastructure.Persistence.Context
         public DbSet<ProductPriceHistory> ProductPriceHistory { get; set; }
         public DbSet<Warehouses> Warehouses { get; set; }
         public DbSet<ProductStock> ProductStock => Set<ProductStock>();
-        public DbSet<InventoryMovements> InventoryMovements { get; set; }
-        public DbSet<PurchaseOrders> PurchaseOrders { get; set; }
-        public DbSet<PurchaseOrderItems> PurchaseOrderItems { get; set; }
-        public DbSet<SupplierInvoices> SupplierInvoices { get; set; }
-        public DbSet<SupplierInvoiceItems> SupplierInvoiceItems { get; set; }
-        public DbSet<Orders> Orders { get; set; }
-        public DbSet<OrderItems> OrderItems { get; set; }
+       //public DbSet<InventoryMovements> InventoryMovements { get; set; }
+        //public DbSet<PurchaseOrders> PurchaseOrders { get; set; }
+        //public DbSet<PurchaseOrderItems> PurchaseOrderItems { get; set; }
+        //public DbSet<SupplierInvoices> SupplierInvoices { get; set; }
+        //public DbSet<SupplierInvoiceItems> SupplierInvoiceItems { get; set; }
+        ////public DbSet<Orders> Orders { get; set; }
+       //public DbSet<OrderItems> OrderItems { get; set; }
         public DbSet<Sales> Sales { get; set; }
         public DbSet<SaleItems> SaleItems { get; set; }
         public DbSet<Invoices> Invoices { get; set; }
@@ -42,8 +42,8 @@ namespace Axolotl.Infrastructure.Persistence.Context
         public DbSet<Payments> Payments { get; set; }
         public DbSet<SalesReturns> SalesReturns { get; set; }
         public DbSet<SalesReturnItems> SalesReturnItems { get; set; }
-        public DbSet<Carts> Carts { get; set; }
-        public DbSet<CartItems> CartItems { get; set; }
+        //public DbSet<Carts> Carts { get; set; }
+        //public DbSet<CartItems> CartItems { get; set; }
         public DbSet<Employees> Employees { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Roles> Roles { get; set; }

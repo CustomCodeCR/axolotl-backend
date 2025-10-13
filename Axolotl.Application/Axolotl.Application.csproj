@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Interfaces\Authentication\" />
+	  <Folder Include="Dtos\" />    
+	  <Folder Include="Interfaces\Authentication\" />
     <Folder Include="Mappings\" />
     <Folder Include="UseCases\" />
   </ItemGroup>
