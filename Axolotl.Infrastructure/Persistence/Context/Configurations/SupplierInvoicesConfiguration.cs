@@ -29,12 +29,12 @@ public class SupplierInvoicesConfiguration : IEntityTypeConfiguration<SupplierIn
 
         // Relationships
         builder.HasOne(x => x.PurchaseOrders)
-               .WithMany(po => po.SupplierInvoices)
+               .WithMany(x => x.SupplierInvoices)
                .HasForeignKey(x => x.PurchaseOrderId)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Suppliers)
-               .WithMany()
+               .WithMany(x => x.SupplierInvoices)
                .HasForeignKey(x => x.SupplierId)
                .OnDelete(DeleteBehavior.Restrict);
     }

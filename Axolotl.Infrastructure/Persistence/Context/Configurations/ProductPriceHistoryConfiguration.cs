@@ -27,7 +27,7 @@ public class ProductPriceHistoryConfiguration : IEntityTypeConfiguration<Product
 
         // Relationships
         builder.HasOne(x => x.Products)
-               .WithMany() // add collection on Products if available
+               .WithMany(x => x.ProductPriceHistories) // add collection on Products if available
                .HasForeignKey(x => x.ProductId)
                .OnDelete(DeleteBehavior.Restrict);
     }
