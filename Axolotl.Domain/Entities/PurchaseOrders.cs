@@ -13,6 +13,6 @@ public class PurchaseOrders : BaseEntity
 
     public virtual Suppliers Suppliers { get; set; } = null!;
     public virtual Warehouses Warehouses { get; set; } = null!;
-    public ICollection<PurchaseOrderItems> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItems>();
-    public ICollection<SupplierInvoices> SupplierInvoices { get; set; } = new List<SupplierInvoices>();
+    public virtual ICollection<PurchaseOrderItems> PurchaseOrderItems { get; set; } = new List<PurchaseOrderItems>();
+    public virtual ICollection<SupplierInvoices> SupplierInvoices { get; set; } = new List<SupplierInvoices>();
 }
