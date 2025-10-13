@@ -1,4 +1,5 @@
 ﻿using WatchDog;
+using WatchDog.src.Enums;
 
 namespace Axolotl.Api.Middleware;
 

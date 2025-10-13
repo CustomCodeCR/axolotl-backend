@@ -8,15 +8,11 @@ namespace Axolotl.Infrastructure.Persistence.Context
 {
     public partial class ApplicationDbContext : DbContext
     {
-        private readonly string _connectionString;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options) { }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, string connectionString)
-            : base(options)
-        {
-            _connectionString = connectionString;
-        }
-
-        public NpgsqlConnection CreateConnection => new NpgsqlConnection(_connectionString);
+        // If you need a connection, use the one EF already knows about:
+        public NpgsqlConnection CreateConnection => (NpgsqlConnection)Database.GetDbConnection();
 
         public DbSet<Customers> Customers { get; set; }
         public DbSet<CustomerAddresses> CustomerAddresses { get; set; }
@@ -47,7 +43,7 @@ namespace Axolotl.Infrastructure.Persistence.Context
         public DbSet<Employees> Employees { get; set; }
         public DbSet<Users> Users { get; set; }
         public DbSet<Roles> Roles { get; set; }
-        public DbSet<UserRoles> UserRoles => Set<UserRoles>();
+        public DbSet<UserRoles> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

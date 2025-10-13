@@ -39,17 +39,17 @@ public class ProductsConfiguration : IEntityTypeConfiguration<Products>
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Units)
-               .WithMany()
+               .WithMany(x => x.Products)
                .HasForeignKey(x => x.UnitId)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.TaxRates)
-               .WithMany()
+               .WithMany(x => x.Products)
                .HasForeignKey(x => x.TaxRateId)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Suppliers)
-               .WithMany()
+               .WithMany(x => x.Products)
                .HasForeignKey(x => x.SupplierId)
                .OnDelete(DeleteBehavior.Restrict);
     }
