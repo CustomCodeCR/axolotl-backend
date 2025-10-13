@@ -30,17 +30,17 @@ public class InvoicesConfiguration : IEntityTypeConfiguration<Invoices>
 
         // Relationships
         builder.HasOne(x => x.Orders)
-               .WithMany() // add collection on Orders if available
+               .WithMany(x => x.Invoices) // add collection on Orders if available
                .HasForeignKey(x => x.OrderId)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Sales)
-               .WithMany() // add collection on Sales if available
+               .WithMany(x => x.Invoices) // add collection on Sales if available
                .HasForeignKey(x => x.SaleId)
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.CustomerAddresses)
-               .WithMany() // add collection on CustomerAddresses if available
+               .WithMany(x => x.Invoices) // add collection on CustomerAddresses if available
                .HasForeignKey(x => x.BillingAddressId)
                .OnDelete(DeleteBehavior.Restrict);
     }

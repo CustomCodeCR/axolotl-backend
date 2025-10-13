@@ -33,7 +33,7 @@ public class SalesConfiguration : IEntityTypeConfiguration<Sales>
                .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne(x => x.Warehouses)
-               .WithMany()
+               .WithMany(x => x.Sales)
                .HasForeignKey(x => x.WarehouseId)
                .OnDelete(DeleteBehavior.Restrict);
 
