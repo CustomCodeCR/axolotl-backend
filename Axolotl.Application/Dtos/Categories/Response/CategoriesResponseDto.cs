@@ -1,8 +1,8 @@
-namespace Axolotl.Application.Dtos.Category.Response;
+namespace Axolotl.Application.Dtos.Categories.Response;
 
-public class CategoryResponseDto
+public class CategoriesResponseDto
 {
-    public Guid CategoryId {get; set;}
+    public Guid CategoriesId {get; set;}
     public string? Name {get; set;}
     public string? Description {get; set;}
     public DateTime AuditCreateDate { get; set; }

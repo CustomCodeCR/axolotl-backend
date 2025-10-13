@@ -1,10 +1,10 @@
 using FluentValidation;
 
-namespace Axolotl.Application.UseCases.Category.Commands.CreateCommand;
+namespace Axolotl.Application.UseCases.Categories.Commands.CreateCommand;
 
-public class CreateCategoryValidator : AbstractValidator<CreateCategoryCommand>
+public class CreateCategoriesValidator : AbstractValidator<CreateCategoriesCommand>
 {
-    public CreateCategoryValidator()
+    public CreateCategoriesValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("El nombre no puede estar vacío")

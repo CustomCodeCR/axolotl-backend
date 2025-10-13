@@ -2,34 +2,34 @@ using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Axolotl.Application.Commons.Bases;
-using Axolotl.Application.Dtos.Category.Response;
+using Axolotl.Application.Dtos.Categories.Response;
 using Axolotl.Application.Interfaces.Services;
 using Axolotl.Utilities.Static;
 using Axolotl.Domain.Enums;
 using WatchDog;
 
-namespace Axolotl.Application.UseCases.Category.Queries.GetAllQuery;
+namespace Axolotl.Application.UseCases.Categories.Queries.GetAllQuery;
 
-public class GetAllCategoryHandler :  IRequestHandler<GetAllCategoryQuery, BaseResponse<IEnumerable<CategoryResponseDto>>>
+public class GetAllCategoriesHandler :  IRequestHandler<GetAllCategoriesQuery, BaseResponse<IEnumerable<CategoriesResponseDto>>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     private readonly IOrderingQuery _ordering;
 
-    public GetAllCategoryHandler(IUnitOfWork unitOfWork, IMapper mapper, IOrderingQuery ordering)
+    public GetAllCategoriesHandler(IUnitOfWork unitOfWork, IMapper mapper, IOrderingQuery ordering)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _ordering = ordering;
     }
 
-    public async Task<BaseResponse<IEnumerable<CategoryResponseDto>>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<IEnumerable<CategoriesResponseDto>>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var response = new BaseResponse<IEnumerable<CategoryResponseDto>>();
+        var response = new BaseResponse<IEnumerable<CategoriesResponseDto>>();
 
         try
         {
-            var categories = _unitOfWork.Category.GetAllQueryable();
+            var categories = _unitOfWork.Categories.GetAllQueryable();
 
             if (request.NumFilter is not null && !string.IsNullOrEmpty(request.TextFilter))
             {
@@ -60,7 +60,7 @@ public class GetAllCategoryHandler :  IRequestHandler<GetAllCategoryQuery, BaseR
 
             response.IsSuccess = true;
             response.TotalRecords = await categories.CountAsync(cancellationToken);
-            response.Data = _mapper.Map<IEnumerable<CategoryResponseDto>>(items);
+            response.Data = _mapper.Map<IEnumerable<CategoriesResponseDto>>(items);
             response.Message = ReplyMessage.MESSAGE_QUERY;
         }
         catch (Exception ex)

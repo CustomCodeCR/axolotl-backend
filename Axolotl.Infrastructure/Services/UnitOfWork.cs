@@ -52,6 +52,6 @@ public class UnitOfWork : IUnitOfWork
     }
 
     //References
-    private IGenericRepository<Category> _category = null!;
-    public IGenericRepository<Category> Category => _category ?? new GenericRepository<Category>(_context);
+    private IGenericRepository<Categories> _categories = null!;
+    public IGenericRepository<Categories> Categories => _categories ?? new GenericRepository<Categories>(_context);
 }

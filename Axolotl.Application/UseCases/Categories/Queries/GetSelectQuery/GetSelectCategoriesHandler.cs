@@ -6,27 +6,27 @@ using Axolotl.Application.Interfaces.Services;
 using Axolotl.Utilities.Static;
 using WatchDog;
 
-namespace Axolotl.Application.UseCases.Category.Queries.GetSelectQuery;
+namespace Axolotl.Application.UseCases.Categories.Queries.GetSelectQuery;
 
-public class GetSelectCategoryHandler : IRequestHandler<GetSelectCategoryQuery, BaseResponse<IEnumerable<SelectResponse>>>
+public class GetSelectCategoriesHandler : IRequestHandler<GetSelectCategoriesQuery, BaseResponse<IEnumerable<SelectResponse>>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public GetSelectCategoryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public GetSelectCategoriesHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<IEnumerable<SelectResponse>>> Handle(GetSelectCategoryQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<IEnumerable<SelectResponse>>> Handle(GetSelectCategoriesQuery request, CancellationToken cancellationToken)
     {
 
         var response = new BaseResponse<IEnumerable<SelectResponse>>();
 
         try
         {
-            var categories = await _unitOfWork.Category.GetSelectAsync();
+            var categories = await _unitOfWork.Categories.GetSelectAsync();
 
             response.IsSuccess = true;
             response.Data = _mapper.Map<IEnumerable<SelectResponse>>(categories);

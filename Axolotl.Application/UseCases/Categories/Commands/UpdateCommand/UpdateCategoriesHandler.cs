@@ -6,28 +6,28 @@ using Axolotl.Utilities.Static;
 using WatchDog;
 using Entity = Axolotl.Domain.Entities;
 
-namespace Axolotl.Application.UseCases.Category.Commands.UpdateCommand;
+namespace Axolotl.Application.UseCases.Categories.Commands.UpdateCommand;
 
-public class UpdateCategoryHandler : IRequestHandler<UpdateCategoryCommand, BaseResponse<bool>>
+public class UpdateCategoriesHandler : IRequestHandler<UpdateCategoriesCommand, BaseResponse<bool>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public UpdateCategoryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public UpdateCategoriesHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<bool>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<bool>> Handle(UpdateCategoriesCommand request, CancellationToken cancellationToken)
     {
         var response = new BaseResponse<bool>();
 
         try
         {
-            var category = _mapper.Map<Entity.Category>(request);
-            category.UUID = request.CategoryId;
-            _unitOfWork.Category.UpdateAsync(category);
+            var category = _mapper.Map<Entity.Categories>(request);
+            category.UUID = request.CategoriesId;
+            _unitOfWork.Categories.UpdateAsync(category);
             await _unitOfWork.SaveChangesAsync();
 
             response.IsSuccess = true;

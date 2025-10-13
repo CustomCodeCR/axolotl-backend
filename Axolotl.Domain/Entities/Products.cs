@@ -10,7 +10,7 @@ public class Products : BaseEntity
     public Guid TaxRateId { get; set; }
     public Guid SupplierId { get; set; }
 
-    public virtual Category Category { get; set; } = null!;
+    public virtual Categories Category { get; set; } = null!;
     public virtual Units Units { get; set; } = null!;
     public virtual TaxRates TaxRates { get; set; } = null!;
     public virtual Suppliers Suppliers { get; set; } = null!;

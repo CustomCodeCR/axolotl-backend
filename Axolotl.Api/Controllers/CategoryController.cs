@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Axolotl.Application.UseCases.Category.Commands.CreateCommand;
-using Axolotl.Application.UseCases.Category.Commands.DeleteCommand;
-using Axolotl.Application.UseCases.Category.Commands.UpdateCommand;
-using Axolotl.Application.UseCases.Category.Queries.GetAllQuery;
-using Axolotl.Application.UseCases.Category.Queries.GetByIdQuery;
-using Axolotl.Application.UseCases.Category.Queries.GetSelectQuery;
+using Axolotl.Application.UseCases.Categories.Commands.CreateCommand;
+using Axolotl.Application.UseCases.Categories.Commands.DeleteCommand;
+using Axolotl.Application.UseCases.Categories.Commands.UpdateCommand;
+using Axolotl.Application.UseCases.Categories.Queries.GetAllQuery;
+using Axolotl.Application.UseCases.Categories.Queries.GetByIdQuery;
+using Axolotl.Application.UseCases.Categories.Queries.GetSelectQuery;
 
 namespace Axolotl.Api.Controllers;
 
@@ -21,44 +21,44 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> CategoryList([FromQuery] GetAllCategoryQuery query)
+    public async Task<IActionResult> CategoriesList([FromQuery] GetAllCategoriesQuery query)
     {
         var response = await _mediator.Send(query);
         return Ok(response);
     }
 
     [HttpGet("Select")]
-    public async Task<IActionResult> CategorySelect()
+    public async Task<IActionResult> CategoriesSelect()
     {
-        var response = await _mediator.Send(new GetSelectCategoryQuery());
+        var response = await _mediator.Send(new GetSelectCategoriesQuery());
         return Ok(response);
     }
 
-    [HttpGet("{categoryId:int}")]
-    public async Task<IActionResult> CategoryById(Guid categoryId)
+    [HttpGet("{categoriesId:int}")]
+    public async Task<IActionResult> CategoriesById(Guid categoriesId)
     {
-        var response = await _mediator.Send(new GetCategoryByIdQuery() { CategoryId = categoryId });
+        var response = await _mediator.Send(new GetCategoriesByIdQuery() { CategoriesId = categoriesId });
         return Ok(response);
     }
 
     [HttpPost("Create")]
-    public async Task<IActionResult> CategoryCreate([FromBody] CreateCategoryCommand command)
+    public async Task<IActionResult> CategoriesCreate([FromBody] CreateCategoriesCommand command)
     {
         var response = await _mediator.Send(command);
         return Ok(response);
     }
 
     [HttpPut("Update")]
-    public async Task<IActionResult> CategoryUpdate([FromBody] UpdateCategoryCommand command)
+    public async Task<IActionResult> CategoriesUpdate([FromBody] UpdateCategoriesCommand command)
     {
         var response = await _mediator.Send(command);
         return Ok(response);
     }
 
-    [HttpDelete("Delete/{categoryId:int}")]
-    public async Task<IActionResult> CategoryDelete(Guid categoryId)
+    [HttpDelete("Delete/{categoriesId:int}")]
+    public async Task<IActionResult> CategoriesDelete(Guid categoriesId)
     {
-        var response = await _mediator.Send(new DeleteCategoryCommand() { CategoryId = categoryId });
+        var response = await _mediator.Send(new DeleteCategoriesCommand() { CategoriesId = categoriesId });
         return Ok(response);
     }
 }

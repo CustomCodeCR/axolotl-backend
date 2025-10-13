@@ -10,5 +10,5 @@ public interface IUnitOfWork : IDisposable
     IDbTransaction BeginTransaction();
 
     //Repos
-    IGenericRepository<Category> Category { get; }
+    IGenericRepository<Categories> Categories { get; }
 }

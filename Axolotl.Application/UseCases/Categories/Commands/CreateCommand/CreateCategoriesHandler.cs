@@ -6,28 +6,28 @@ using MediatR;
 using WatchDog;
 using Entity = Axolotl.Domain.Entities;
 
-namespace Axolotl.Application.UseCases.Category.Commands.CreateCommand;
+namespace Axolotl.Application.UseCases.Categories.Commands.CreateCommand;
 
-public class CreateCategoryHandler : IRequestHandler<CreateCategoryCommand, BaseResponse<bool>>
+public class CreateCategoriesHandler : IRequestHandler<CreateCategoriesCommand, BaseResponse<bool>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     //constructor
-    public CreateCategoryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public CreateCategoriesHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<bool>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<bool>> Handle(CreateCategoriesCommand request, CancellationToken cancellationToken)
     {
         var response = new BaseResponse<bool>();
 
         try
         {
-            var category = _mapper.Map<Entity.Category>(request);
-            await _unitOfWork.Category.CreateAsync(category);
+            var category = _mapper.Map<Entity.Categories>(request);
+            await _unitOfWork.Categories.CreateAsync(category);
             await _unitOfWork.SaveChangesAsync();
 
             response.IsSuccess = true;
